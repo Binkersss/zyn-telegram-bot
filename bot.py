@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from pymongo import MongoClient
 from telegram import Update
 from telegram.ext import Application, CommandHandler, ContextTypes, JobQueue
+from flask import Flask
 
 # Load environment variables
 load_dotenv()
@@ -20,6 +21,13 @@ collection = db.usage
 # Logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+# Flask app
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Zyn Tracker Bot is running!"
 
 async def delete_old_entries():
     thirty_days_ago = datetime.date.today() - datetime.timedelta(days=30)
@@ -115,7 +123,6 @@ async def decrement_most_recent(update: Update, context: ContextTypes.DEFAULT_TY
 def main():
     application = Application.builder().token(TOKEN).build()
     
-
     application.add_handler(CommandHandler("zyn", track_zyn))
     application.add_handler(CommandHandler("daily", daily_summary))
     application.add_handler(CommandHandler("weekly", weekly_summary))
@@ -129,5 +136,10 @@ def main():
     application.run_polling()
 
 if __name__ == "__main__":
+    # Run the Flask app in a separate thread
+    from threading import Thread
+    flask_thread = Thread(target=lambda: app.run(host='0.0.0.0', port=5000))
+    flask_thread.start()
+    
+    # Run the main bot application
     main()
-# This bot tracks Zyn usage and provides daily and weekly summaries.
