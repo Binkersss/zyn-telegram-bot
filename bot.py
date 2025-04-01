@@ -34,7 +34,7 @@ async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         "/weekly - Weekly summary\n"
         "/30days - 30-day summary\n"
         "/removeRecent - Remove the most recent entry\n"
-        "/delete - Delete all entries\n"
+        "/deleteAll - Delete all entries\n"
         "/help - Show this help message"
     )
 

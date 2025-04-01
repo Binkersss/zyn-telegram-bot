@@ -8,6 +8,10 @@ The bot is hosted on MongoDB and Render. You can find it here: https://web.teleg
 - Track daily Zyn usage with the `/zyn` command.
 - Get a summary of today's Zyn usage with the `/daily` command.
 - Get a summary of the last 7 days' Zyn usage with the `/weekly` command.
+- Get a summary of the last 30 days' Zyn usage with the `/30days` command.
+- Delete the most recent entry with the `/removeRecent` command.
+- Delete all entries with the `/deleteAll` command.
+- Get help with `/help`.
 
 ## Prerequisites
 
